@@ -91,8 +91,7 @@ def lambda_handler(event, context):
     ClusterInfo = event['ResourceProperties']['ClusterInfo']
     ConfigData = event['ResourceProperties']['ConfigData']
     
-    # Handle each event, create, update, delete with different logic
-    
+    # Handle each event, create, update, delete with different logic    
     # Use status check to ensure the cluster exists first, then seed data    
 
     if (event['RequestType'] == "Create"):
