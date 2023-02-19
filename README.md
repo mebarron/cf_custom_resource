@@ -1,4 +1,4 @@
-# AWS Cloud Formation Lambda Backed Custom Resource Example
+# AWS Cloud Formation Lambda Backed Custom Resource
 
 ## What does this do? 
 
