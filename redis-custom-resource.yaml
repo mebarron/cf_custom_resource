@@ -3,7 +3,7 @@ Description: Example template for Redis Cluster custom resource
 Parameters:
   CustomRedisClusterFunctionARN:
     Type: String
-    Description: The Lambda function ARN that deploys the cluster
+    Description: Custom resource Lambda function ARN
 
 Resources:
     CustomRedisCluster:
