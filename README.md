@@ -8,4 +8,4 @@
 ## Things to consider 
 
 - Don't hardcode passwords for the cluster, fetch these from AWS Secrets Manager instead 
-- You can also use Terraform, with the CloudFormation template body inline and call the Lambda ARN
+- You can also use Terraform, place the CloudFormation template body inline and use the Lambda function's ARN
