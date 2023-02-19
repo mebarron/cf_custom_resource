@@ -78,18 +78,27 @@ def loadData(ClusterInfo, ConfigData):
     r = redis.Redis(
     host=ClusterInfo['hostname'],
     port=123,
-    password=ClusterInfo['password']) # in practice, use secret strings / secrets manager and retrieve these values externally
-    r.set(ConfigData) # load a dictionary of key/value pairs
+    
+    # Use AWS Secrets Manager and retrieve these values instead
+     
+    password=ClusterInfo['password']) 
+
+    # Seed cluster with a pre-set dictionary of key/value pairs
+
+    r.set(ConfigData)
 
 def lambda_handler(event, context):
     ClusterInfo = event['ResourceProperties']['ClusterInfo']
     ConfigData = event['ResourceProperties']['ConfigData']
-    # handle each event, create, update, delete with different logic
+    
+    # Handle each event, create, update, delete with different logic
+    
+    # Use status check to ensure the cluster exists first, then seed data    
+
     if (event['RequestType'] == "Create"):
         if (checkIfExists(ClusterInfo['CacheClusterId']) == False):
             status = createCluster(ClusterInfo)
-            # add a check or wait before loading the K/V data
-            #loadData(ConfigData)
+            loadData(ConfigData)
             return status
         else:
             status = "SUCCESS"
@@ -99,13 +108,11 @@ def lambda_handler(event, context):
     if (event['RequestType'] == "Update"):
         if (checkIfExists(ClusterInfo['CacheClusterId']) == True):
             status = updateCluster(ClusterInfo)
-            # add a check or wait before loading the K/V data
-            #loadData(ConfigData)
+            loadData(ConfigData)
             return status
         else:
             status = createCluster(ClusterInfo)
-            # add a check or wait before loading the K/V data
-            #loadData(ConfigData)
+            loadData(ConfigData)
             return status
 
     if (event['RequestType'] == "Delete"):
